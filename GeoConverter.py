@@ -244,7 +244,7 @@ class MainFrame:
 		self.footer_label1 = Label(self.footer_button_frames,text="Powered by GeoODK")
 		self.footer_label1.grid(row=2,column=0,columnspan=3)
 
-		self.footer_label2 = Label(self.footer_button_frames,text="Developed at University of Maryland")
+		self.footer_label2 = Label(self.footer_button_frames,text="Developed by Jon Nordling")
 		self.footer_label2.grid(row=3,column=0,columnspan=3)
 		self.file_tree_full =[]
 		#self.file_tree_lable=list()
