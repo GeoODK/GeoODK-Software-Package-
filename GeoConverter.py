@@ -30,6 +30,8 @@ from kmz_creater import *
 from shape_builder import *
 from image_download import *
 
+import config as c
+
 #from kmz_creater import *
 
 #from error_window import *
@@ -52,10 +54,12 @@ class MainFrame:
 		#testfile = open('image.txt','w')
 		#testfile.write(g)
 		#testfile.close()
+
+		self.config = c.config
 		self.header_frame = Frame(master)
 		self.header_frame.grid()		
 		try:
-			self.photo = PhotoImage(file='icons\logo2.gif')
+			self.photo = PhotoImage(file=self.config['photo_location'])
 			self.photo_label = Label(self.header_frame,image=self.photo)
 			self.photo_label.image = self.photo # keep a reference!
 			self.photo_label.grid(row=0, column=0)
@@ -64,10 +68,10 @@ class MainFrame:
 			self.photo_label.grid(row=0, column=0)
 
 
-		self.header_label=Label(self.header_frame, text="Mobile Data Conversion Kit",font=("Helvetica", 22),anchor="center")
+		self.header_label=Label(self.header_frame, text=self.config['title'],font=("Helvetica", 22),anchor="center")
 		self.header_label.grid(row=0,column=1,padx=80)
 
-		step_one_lable = Label(master,text="1) Choose the CSV data file(s) to process:",font=("Helvetica", 13))
+		step_one_lable = Label(master,text=self.config['step_one'],font=("Helvetica", 13))
 		step_one_lable.grid(sticky=W,padx=5)
 
 		#.files_list_full = []
@@ -108,16 +112,16 @@ class MainFrame:
 
 
 		# This is the button to open the CSV
-		self.get_csv_button = Button(self.list_box_button_frame, text= "Add CSV File(s)", command=self.header_listbox)
+		self.get_csv_button = Button(self.list_box_button_frame, text=self.config['add_csv'], command=self.header_listbox)
 		self.get_csv_button.grid(row=0,column=0,sticky=W+E)
-		self.get_csv_button2 = Button(self.list_box_button_frame, text= "Remove CSV File(s)", command=self.remove_listbox_item)
+		self.get_csv_button2 = Button(self.list_box_button_frame, text=self.config['remove_csv'], command=self.remove_listbox_item)
 		self.get_csv_button2.grid(row=1,column=0,pady=5)
 
 		####################################################################################################
 		# Content Frame
 		# This is a content frame that is 
 
-		step_two_lable = Label(master,text="2) Select the format of the data:",font=("Helvetica", 13))
+		step_two_lable = Label(master,text=self.config['step_two'],font=("Helvetica", 13))
 		step_two_lable.grid(sticky=W,padx=5)
 
 		self.content_frame = Frame(master,bd=0,relief=SUNKEN)
@@ -133,14 +137,14 @@ class MainFrame:
 		self.content_submit_frame.grid(row=0,column=2,padx=5,pady=20,sticky=N+S)
 
 		self.lat_label = StringVar()
-		self.lat_label.set("Choose Latitude Field")
+		self.lat_label.set(self.config['lat'])
 		self.list_headers = [' ']
 		self.lat_field = OptionMenu(self.content_left_frame,self.lat_label,*self.list_headers)
 		self.lat_field.config(width=20)
 		self.lat_field.grid(row=2,column=0,sticky=W+E)
 
 		self.lng_label = StringVar()
-		self.lng_label.set("Choose Longitude Field")
+		self.lng_label.set(self.config['lng'])
 		self.lng_field = OptionMenu(self.content_left_frame,self.lng_label,*self.list_headers)
 		self.lng_field.config(width=20)
 		self.lng_field.grid(row=3,column=0,sticky=W+E)
@@ -159,7 +163,7 @@ class MainFrame:
 		#self.orientation_field.grid(row=1,column=0,sticky=W+E)
 
 		self.image_label = StringVar()
-		self.image_label.set("Choose Image Field")
+		self.image_label.set(self.config['image'])
 		self.image_field = OptionMenu(self.content_right_frame,self.image_label,*self.list_headers)
 		self.image_field.config(width=20)
 		self.image_field.grid(row=0,column=0,sticky=N+S)
@@ -173,7 +177,7 @@ class MainFrame:
 		# Selection Frame
 		# This frame is ment for the user to decide what they will be doing with the files. 
 		###################################################################################################
-		self.step_three_lable = Label(master,text="3) Select outputs to export:",font=("Helvetica", 13))
+		self.step_three_lable = Label(master,text=self.config['step_three'],font=("Helvetica", 13))
 		self.step_three_lable.grid(sticky=W,padx=5,pady=5)
 
 
